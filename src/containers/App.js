@@ -14,10 +14,18 @@ class App extends Component {
     }
   }
 
+
   componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/users').then(Response=> Response.json())
-    .then(users => this.setState({robots: users}))
+    fetch('https://dummyjson.com/users')
+      .then(response => response.json())
+      .then(data => {
+        const users = data.users;
+        this.setState({ robots: users })
+      })
   }
+  
+            
+  
 
   onSearchChange = (event) => {
     this.setState({ searchfield: event.target.value})
@@ -27,7 +35,7 @@ class App extends Component {
   render() {
     const { robots, searchfield } = this.state;
     const filteredRobots = robots.filter(robot =>{
-      return robot.name.toLowerCase().includes(searchfield.toLowerCase());
+      return robot.firstName.toLowerCase().includes(searchfield.toLowerCase());
     })
     return(
       <div className="tc">
